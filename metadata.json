@@ -1,0 +1,6 @@
+{
+  "name": "VEAIVEX AI",
+  "description": "VEAIVEX AI is a business intelligence and AI decision-support product developed by Veltrivex AI Global to help SMEs understand business data, identify risks, and make better-informed decisions.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
