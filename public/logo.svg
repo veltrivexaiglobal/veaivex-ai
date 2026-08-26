@@ -1,1 +1,41 @@
-
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#080e1a" />
+      <stop offset="100%" stopColor="#02060d" />
+    </linearGradient>
+    <linearGradient id="cyan-blue" x1="50" y1="120" x2="260" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#38bdf8" />
+      <stop offset="45%" stopColor="#0284c7" />
+      <stop offset="100%" stopColor="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="bright-cyan" x1="160" y1="280" x2="280" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#00f2fe" />
+      <stop offset="100%" stopColor="#4facfe" />
+    </linearGradient>
+    <linearGradient id="purple-wing" x1="220" y1="420" x2="450" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#2563eb" />
+      <stop offset="35%" stopColor="#4f46e5" />
+      <stop offset="70%" stopColor="#9333ea" />
+      <stop offset="100%" stopColor="#c084fc" />
+    </linearGradient>
+    <linearGradient id="bar-grad" x1="240" y1="120" x2="360" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#38bdf8" />
+      <stop offset="100%" stopColor="#0284c7" />
+    </linearGradient>
+    <radialGradient id="orb-grad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stopColor="#67e8f9" />
+      <stop offset="60%" stopColor="#0284c7" />
+      <stop offset="100%" stopColor="#1e3a8a" />
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bg)" />
+  <rect width="512" height="512" rx="108" stroke="#1e293b" stroke-width="6" />
+  <polygon points="246,204 272,186 272,274 246,274" fill="url(#bar-grad)" />
+  <polygon points="282,156 316,134 316,258 282,258" fill="url(#bar-grad)" />
+  <polygon points="327,118 362,94 362,228 327,228" fill="url(#bar-grad)" />
+  <circle cx="402" cy="100" r="25" fill="url(#orb-grad)" />
+  <path d="M228 424 C270 380 370 240 450 142 C410 186 320 286 268 344 C244 370 226 392 216 404 Z" fill="url(#purple-wing)" />
+  <path d="M52 154 C92 152 140 184 186 244 C226 296 250 360 258 428 C242 432 216 422 188 386 C152 340 108 266 52 154 Z" fill="url(#cyan-blue)" />
+  <path d="M136 264 C176 304 212 362 258 428 C248 376 218 320 184 278 C158 246 142 248 136 264 Z" fill="url(#bright-cyan)" />
+</svg>
