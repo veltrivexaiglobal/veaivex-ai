@@ -1,82 +1,77 @@
 import React, { useState } from 'react';
-import { VeaivexLogo } from './VeaivexLogo';
-import { BusinessProfile, Language, Currency } from '../types';
 import {
-  Mic,
-  Sparkles,
-  Database,
-  Globe,
-  DollarSign,
   Menu,
   X,
-  FileText,
-  HelpCircle,
-  LogIn,
-  UserPlus,
-  ArrowRight,
+  Sparkles,
   LayoutDashboard,
+  TrendingUp,
+  Receipt,
+  Boxes,
+  PieChart,
+  BrainCircuit,
+  SlidersHorizontal,
+  FileText,
+  Settings,
+  HelpCircle,
   ShieldCheck,
-  Compass,
-  Layers,
-  ChevronDown,
+  Award,
+  Globe,
+  Mic,
+  Users,
+  ShoppingCart
 } from 'lucide-react';
+import { ViewMode, BusinessProfile, CurrencyCode } from '../types';
+import VeaivexLogo from './VeaivexLogo';
 
 interface NavbarProps {
-  currentView: string;
-  onNavigate: (view: string) => void;
+  currentView: ViewMode;
+  onNavigate: (view: ViewMode) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
   profile: BusinessProfile;
   onUpdateProfile: (updates: Partial<BusinessProfile>) => void;
-  onOpenVoiceModal: () => void;
-  onOpenDemoGuide: () => void;
-  onOpenAuth: (mode?: 'signin' | 'signup') => void;
-  sidebarOpen: boolean;
-  onToggleSidebar: () => void;
+  onOpenAudioBrief: () => void;
+  onOpenOnboarding: () => void;
+  onOpenJudgeDemo: () => void;
 }
+
+const currencies: { code: CurrencyCode; label: string; symbol: string; flag: string }[] = [
+  { code: 'USD', label: 'USD ($)', symbol: '$', flag: '🇺🇸' },
+  { code: 'NGN', label: 'NGN (₦)', symbol: '₦', flag: '🇳🇬' },
+  { code: 'KES', label: 'KES (KSh)', symbol: 'KSh', flag: '🇰🇪' },
+  { code: 'GHS', label: 'GHS (GH₵)', symbol: 'GH₵', flag: '🇬🇭' },
+  { code: 'GBP', label: 'GBP (£)', symbol: '£', flag: '🇬🇧' },
+  { code: 'EUR', label: 'EUR (€)', symbol: '€', flag: '🇪🇺' },
+];
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentView,
   onNavigate,
+  sidebarOpen,
+  setSidebarOpen,
   profile,
   onUpdateProfile,
-  onOpenVoiceModal,
-  onOpenDemoGuide,
-  onOpenAuth,
-  sidebarOpen,
-  onToggleSidebar,
+  onOpenAudioBrief,
+  onOpenOnboarding,
+  onOpenJudgeDemo,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const currencies: { code: Currency; symbol: string; label: string }[] = [
-    { code: 'NGN', symbol: '₦', label: 'NGN (₦)' },
-    { code: 'USD', symbol: '$', label: 'USD ($)' },
-    { code: 'GBP', symbol: '£', label: 'GBP (£)' },
-    { code: 'EUR', symbol: '€', label: 'EUR (€)' },
-  ];
-
-  const scrollToLandingSection = (sectionId: string) => {
+  const handleNavClick = (view: ViewMode) => {
+    onNavigate(view);
     setMobileMenuOpen(false);
-    if (currentView !== 'landing') {
-      onNavigate('landing');
-      setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/90 text-white select-none transition-all">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-3">
+    <header className="sticky top-0 z-40 w-full bg-slate-950/95 backdrop-blur-md border-b border-slate-800/90 text-white select-none transition-all">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-3 w-full">
         {/* Left: Brand Lockup & Mobile Toggle */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 min-w-0">
           {currentView !== 'landing' ? (
             <button
               id="btn-sidebar-toggle"
-              onClick={onToggleSidebar}
-              className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors flex items-center justify-center shrink-0"
               aria-label="Toggle Workspace Sidebar"
             >
               {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -85,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="btn-mobile-nav-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors flex items-center justify-center shrink-0"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -95,100 +90,88 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div
             id="brand-logo-button"
             onClick={() => onNavigate('landing')}
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
+            className="flex items-center gap-1.5 sm:gap-2.5 cursor-pointer group shrink-0"
           >
-            <VeaivexLogo size="sm" />
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="text-white font-extrabold tracking-wider text-sm sm:text-base">
+            <VeaivexLogo size="sm" className="w-6 h-6 sm:w-7 sm:h-7 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                <span className="text-white font-extrabold tracking-wider text-xs sm:text-base whitespace-nowrap">
                   VEAIVEX
                 </span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-xs">
+                <span className="px-1 py-0.2 sm:px-1.5 sm:py-0.5 rounded text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-xs shrink-0">
                   AI
                 </span>
               </div>
-              <span className="text-[10px] text-slate-400 font-medium hidden md:inline-block leading-none">
+              <span className="text-[10px] text-slate-400 font-medium hidden md:inline-block leading-none truncate">
                 Decision Intelligence for SMEs
               </span>
             </div>
           </div>
         </div>
 
-        {/* Center: Navigation Links for Landing Page OR Business Title for App */}
-        {currentView === 'landing' ? (
-          <nav className="hidden lg:flex items-center gap-5 text-xs font-semibold text-slate-300">
+        {/* Center: Landing Navigation (When in Landing Mode) */}
+        {currentView === 'landing' && (
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-slate-300">
             <button
-              onClick={() => onNavigate('landing')}
-              className="text-white hover:text-blue-400 transition-colors"
+              onClick={() => {
+                const el = document.getElementById('features-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/50 transition-colors text-xs font-semibold"
             >
-              Home
+              Features
             </button>
             <button
-              onClick={() => scrollToLandingSection('solution')}
-              className="hover:text-white transition-colors"
+              onClick={() => {
+                const el = document.getElementById('sdg-impact-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/50 transition-colors text-xs font-semibold"
             >
-              Solution
+              SDG Impact
             </button>
             <button
-              onClick={() => scrollToLandingSection('product')}
-              className="hover:text-white transition-colors"
+              onClick={() => {
+                const el = document.getElementById('interactive-demo-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/50 transition-colors text-xs font-semibold"
             >
-              Workspaces
+              Live Demo
             </button>
             <button
-              onClick={() => scrollToLandingSection('how-it-works')}
-              className="hover:text-white transition-colors"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('ai-copilot')}
-              className="hover:text-white transition-colors"
-            >
-              AI Copilot
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('sme-impact')}
-              className="hover:text-white transition-colors"
+              onClick={() => {
+                const el = document.getElementById('case-studies-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/50 transition-colors text-xs font-semibold"
             >
               Case Studies
             </button>
             <button
-              onClick={() => scrollToLandingSection('faq')}
-              className="hover:text-white transition-colors"
+              onClick={() => {
+                const el = document.getElementById('pricing-roi-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/50 transition-colors text-xs font-semibold"
             >
-              FAQ
+              ROI Calculator
             </button>
           </nav>
-        ) : (
-          <div className="hidden md:flex items-center gap-2.5">
-            <button
-              onClick={() => onNavigate('landing')}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
-            >
-              <span>&larr; Website</span>
-            </button>
-            <div className="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
-              <span className="text-slate-400 font-medium">Business:</span>
-              <span className="font-bold text-slate-200 truncate max-w-[160px]">{profile.name}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block ml-0.5 animate-pulse"></span>
-              <span className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider hidden lg:inline">Live BI</span>
-            </div>
-          </div>
         )}
 
         {/* Right Action Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
+        <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
           {/* Hackathon Judge Demo Guide Trigger */}
           <button
             id="btn-nav-judge-guide"
-            onClick={onOpenDemoGuide}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-extrabold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-all hover:scale-105 active:scale-95 shadow-xs"
+            onClick={onOpenJudgeDemo}
+            className="flex items-center gap-1 sm:gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-xs font-extrabold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-all hover:scale-105 active:scale-95 shadow-xs shrink-0"
             title="Open 10Alytics BuildFest 2026 Judge Evaluation Guide"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span className="hidden sm:inline">Judge Guide</span>
-            <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-amber-400 text-slate-950 uppercase tracking-tighter">
+            <span className="hidden xs:inline">Judge Guide</span>
+            <span className="hidden sm:inline-block px-1.5 py-0.2 rounded text-[9px] font-black bg-amber-400 text-slate-950 uppercase tracking-tighter">
               2026
             </span>
           </button>
@@ -197,66 +180,62 @@ export const Navbar: React.FC<NavbarProps> = ({
             <>
               <button
                 onClick={() => onNavigate('dashboard')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 shadow-sm transition-all"
+                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 shadow-sm transition-all"
               >
                 <LayoutDashboard className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                <span className="hidden xs:inline">Live Workspace</span>
+                <span>Live Workspace</span>
               </button>
 
               <button
-                id="btn-nav-primary-ask-veaivex"
                 onClick={() => onNavigate('ask-veaivex')}
-                className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-900/25 ring-1 ring-blue-400/30 transition-all hover:scale-105 active:scale-95"
+                className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-1.5 rounded-lg sm:rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-900/25 ring-1 ring-blue-400/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0"
               >
-                <Sparkles className="w-3.5 h-3.5 text-blue-200" />
-                <span>Ask VEAIVEX</span>
+                <Sparkles className="w-3.5 h-3.5 text-blue-200 shrink-0" />
+                <span className="hidden xs:inline">Ask </span>
+                <span>VEAIVEX</span>
               </button>
             </>
           ) : (
             <>
               {/* Currency Selector */}
-              <div className="relative hidden xs:block">
+              <div className="relative hidden md:block">
                 <select
                   id="select-currency"
                   value={profile.currency}
-                  onChange={(e) => {
-                    const newCurr = e.target.value as Currency;
-                    const match = currencies.find((c) => c.code === newCurr);
-                    onUpdateProfile({
-                      currency: newCurr,
-                      currencySymbol: match ? match.symbol : '₦',
-                    });
-                  }}
-                  className="bg-slate-900 text-xs font-semibold text-slate-200 border border-slate-800 rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
-                  aria-label="Select Currency"
+                  onChange={(e) => onUpdateProfile({ currency: e.target.value as CurrencyCode })}
+                  className="appearance-none bg-slate-900 hover:bg-slate-800/90 text-slate-200 text-xs font-bold pl-7 pr-6 py-1.5 rounded-xl border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-xs"
                 >
                   {currencies.map((c) => (
-                    <option key={c.code} value={c.code}>
-                      {c.symbol} {c.code}
+                    <option key={c.code} value={c.code} className="bg-slate-900 text-white">
+                      {c.code} ({c.symbol})
                     </option>
                   ))}
                 </select>
+                <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">
+                  ▾
+                </div>
               </div>
 
-              {/* Voice Mode Action */}
+              {/* Audio CEO Briefing Trigger */}
               <button
-                id="btn-voice-mode"
-                onClick={onOpenVoiceModal}
-                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-800 text-blue-300 hover:text-blue-200 transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
-                title="Activate Conversational Voice Mode (TTS / Speech)"
+                id="btn-voice-briefing-nav"
+                onClick={onOpenAudioBrief}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 transition-all hover:scale-105 active:scale-95 shadow-xs"
+                title="Play AI Audio CEO Briefing"
               >
-                <Mic className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+                <Mic className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
                 <span>Voice</span>
               </button>
 
-              {/* Primary CTA: Ask VEAIVEX (Consistently styled across entire app) */}
+              {/* Primary CTA: Ask VEAIVEX */}
               <button
                 id="btn-ask-veaivex-nav"
                 onClick={() => onNavigate('ask-veaivex')}
-                className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-900/30 ring-1 ring-blue-400/40 transition-all hover:scale-105 active:scale-95"
+                className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-1.5 rounded-lg sm:rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-900/30 ring-1 ring-blue-400/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0"
               >
-                <Sparkles className="w-3.5 h-3.5 text-blue-200" />
-                <span className="hidden sm:inline">Ask</span>
+                <Sparkles className="w-3.5 h-3.5 text-blue-200 shrink-0" />
+                <span className="hidden xs:inline">Ask </span>
                 <span>VEAIVEX</span>
               </button>
             </>
@@ -264,95 +243,74 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer Menu for Landing Page */}
+      {/* Mobile Drawer Navigation (When on Landing Page) */}
       {currentView === 'landing' && mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 py-5 space-y-4 animate-in slide-in-from-top-2 duration-200">
-          <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
+        <div className="lg:hidden bg-slate-900/98 border-b border-slate-800 px-4 py-3 space-y-2 animate-in slide-in-from-top duration-200">
+          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-800">
+            <button
+              onClick={() => handleNavClick('dashboard')}
+              className="flex items-center gap-2 p-2.5 rounded-xl bg-blue-600/20 text-blue-300 font-bold text-xs border border-blue-500/30"
+            >
+              <LayoutDashboard className="w-4 h-4 text-blue-400" />
+              <span>Launch App</span>
+            </button>
             <button
               onClick={() => {
-                onNavigate('landing');
                 setMobileMenuOpen(false);
+                onOpenJudgeDemo();
               }}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 min-h-[44px] flex items-center"
+              className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/20 text-amber-300 font-bold text-xs border border-amber-500/30"
             >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('solution')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              Solution
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('product')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              Workspaces
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('how-it-works')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('ai-copilot')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              AI Copilot
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('sme-impact')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              Case Studies
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('faq')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              FAQ
-            </button>
-            <button
-              onClick={() => scrollToLandingSection('contact')}
-              className="text-left px-3 py-2.5 rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-800 min-h-[44px] flex items-center"
-            >
-              Contact
+              <Award className="w-4 h-4 text-amber-400" />
+              <span>Judge Guide</span>
             </button>
           </div>
 
-          <div className="pt-2 border-t border-slate-800 flex flex-col gap-2.5">
+          <div className="space-y-1 text-sm text-slate-300 pt-1">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenDemoGuide();
+                document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-xs font-medium"
             >
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
-              <span>10Alytics BuildFest 2026 Judge Guide</span>
+              Key Features
             </button>
-
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onNavigate('dashboard');
+                document.getElementById('sdg-impact-section')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-blue-300 border border-slate-700 flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-xs font-medium text-emerald-400"
             >
-              <LayoutDashboard className="w-4 h-4 text-blue-400" />
-              <span>Explore Live Workspace</span>
+              SDG 8 & 12 Impact
             </button>
-
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onNavigate('ask-veaivex');
+                document.getElementById('interactive-demo-section')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-xs font-medium"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Ask VEAIVEX AI Copilot</span>
+              Interactive Product Demo
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                document.getElementById('case-studies-section')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-xs font-medium"
+            >
+              SME Case Studies
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                document.getElementById('pricing-roi-section')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-xs font-medium"
+            >
+              Pricing & ROI Calculator
             </button>
           </div>
         </div>
@@ -361,3 +319,4 @@ export const Navbar: React.FC<NavbarProps> = ({
   );
 };
 
+export default Navbar;
