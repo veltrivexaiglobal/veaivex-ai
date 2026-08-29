@@ -1,43 +1,27 @@
 import React, { useState } from 'react';
 import { VeaivexLogo } from '../VeaivexLogo';
-import { VeaivexAvatar } from '../VeaivexAvatar';
 import {
-  Sparkles,
   ArrowRight,
-  ShieldCheck,
-  Zap,
   TrendingUp,
   Package,
-  Users,
-  Receipt,
-  CheckCircle2,
-  HelpCircle,
-  Play,
-  Layers,
-  LineChart,
-  BarChart3,
   Bot,
   BrainCircuit,
-  Lock,
   ChevronDown,
   LayoutDashboard,
-  Building2,
-  ShoppingCart,
+  Play,
 } from 'lucide-react';
 
 interface LandingPageProps {
   onLaunchDashboard: () => void;
-  onOpenVoiceModal: () => void;
-  onOpenDemoGuide: () => void;
-  onOpenAuth: (mode?: 'signin' | 'signup') => void;
-  onNavigate: (view: string) => void;
+  onOpenVoiceModal?: () => void;
+  onOpenDemoGuide?: () => void;
+  onOpenAuth?: (mode?: 'signin' | 'signup') => void;
+  onNavigate?: (view: string) => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onLaunchDashboard,
   onOpenDemoGuide,
-  onOpenAuth,
-  onNavigate,
 }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
@@ -75,12 +59,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <button 
-            onClick={onOpenDemoGuide}
-            className="px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-lg transition"
-          >
-            Judge Guide
-          </button>
+          {onOpenDemoGuide && (
+            <button 
+              onClick={onOpenDemoGuide}
+              className="px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-lg transition"
+            >
+              Judge Guide
+            </button>
+          )}
           <button 
             onClick={onLaunchDashboard}
             className="px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow-lg shadow-blue-600/30 flex items-center gap-1.5 transition"
@@ -113,12 +99,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           >
             <LayoutDashboard className="w-4 h-4" /> Enter Live BI Workspace
           </button>
-          <button 
-            onClick={onOpenDemoGuide}
-            className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold rounded-xl flex items-center gap-2 text-sm transition"
-          >
-            <Play className="w-4 h-4 text-blue-400" /> Watch Demo Guide
-          </button>
+          {onOpenDemoGuide && (
+            <button 
+              onClick={onOpenDemoGuide}
+              className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold rounded-xl flex items-center gap-2 text-sm transition"
+            >
+              <Play className="w-4 h-4 text-blue-400" /> Watch Demo Guide
+            </button>
+          )}
         </div>
       </section>
 
