@@ -1,5 +1,7 @@
 export type Language = 'en';
 export type Currency = 'NGN' | 'USD' | 'GBP' | 'EUR' | 'GHS' | 'KES';
+export type CurrencyCode = Currency;
+export type ViewMode = 'dashboard' | 'ai-insights' | 'sales' | 'expenses' | 'profit' | 'inventory' | 'pos-orders' | 'customers' | 'what-if' | 'ask-veaivex' | 'reports' | 'data-upload' | 'settings' | 'landing' | string;
 
 export interface BusinessProfile {
   name: string;
