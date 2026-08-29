@@ -1,1 +1,5 @@
 
+User-agent: *
+Allow: /
+
+Sitemap: https://veaivex-ai-1.vercel.app/sitemap.xml
