@@ -142,3 +142,5 @@ export const VeaivexLogo: React.FC<VeaivexLogoProps> = ({
     </div>
   );
 };
+
+export default VeaivexLogo;
