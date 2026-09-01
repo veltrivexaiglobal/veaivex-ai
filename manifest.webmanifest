@@ -1,0 +1,12 @@
+{
+  "name": "VeltriPay",
+  "short_name": "VeltriPay",
+  "description": "Professional Nigerian digital utilities and VTU platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f766e",
+  "icons": [
+    {"src":"/assets/brand/veltripay-logo.png","sizes":"1536x1536","type":"image/png","purpose":"any maskable"}
+  ]
+}

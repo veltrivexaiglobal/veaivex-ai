@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+}
+
+/* Custom crisp scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(203, 213, 225, 0.9);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.6);
+}
+
+/* Hide scrollbars for carousel / mobile chip lists */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile safe area padding for bottom nav */
+.safe-bottom-padding {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem);
+}
+
+/* Receipt Print styling */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* VeltriPay production UI polish: restrained surfaces, predictable motion, touch-safe controls. */
+html { scroll-behavior: smooth; }
+body { min-width: 320px; overflow-x: hidden; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* VeltriPay opening experience: polished logo rotation + light sweep. */
+.veltripay-app-shell {
+  min-height: 100vh;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.veltripay-app-shell--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.veltripay-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(19, 92, 204, 0.25), transparent 34%),
+    linear-gradient(145deg, #020617 0%, #06143b 48%, #020617 100%);
+  color: #fff;
+  opacity: 1;
+  transition: opacity 400ms ease, visibility 400ms ease;
+}
+
+.veltripay-splash--leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.veltripay-splash__glow {
+  position: absolute;
+  width: min(75vw, 520px);
+  height: min(75vw, 520px);
+  border-radius: 50%;
+  background: rgba(0, 190, 255, 0.16);
+  filter: blur(75px);
+  animation: veltripayGlow 2.2s ease-in-out infinite;
+}
+
+.veltripay-splash__logo-wrap {
+  position: relative;
+  z-index: 1;
+  width: min(72vw, 360px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  animation: veltripayLogoIntro 2.15s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.veltripay-splash__logo-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
+}
+
+.veltripay-splash__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.veltripay-splash__shine {
+  position: absolute;
+  inset: -35% auto -35% -80%;
+  width: 34%;
+  transform: rotate(24deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.78), transparent);
+  filter: blur(5px);
+  animation: veltripayShine 1.65s ease-in-out 0.45s 2;
+  pointer-events: none;
+}
+
+.veltripay-splash__brand {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  font-size: clamp(28px, 7vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-shadow: 0 4px 20px rgba(0,0,0,.35);
+  animation: veltripayTextIn 700ms ease 650ms both;
+}
+
+.veltripay-splash__powered {
+  position: relative;
+  z-index: 1;
+  margin-top: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .19em;
+  opacity: .72;
+  text-align: center;
+  animation: veltripayTextIn 700ms ease 850ms both;
+}
+
+.veltripay-splash__loader {
+  position: relative;
+  z-index: 1;
+  width: 110px;
+  height: 3px;
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.16);
+  animation: veltripayTextIn 600ms ease 1000ms both;
+}
+
+.veltripay-splash__loader span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #10bdf5, #ffffff, #ffc20e);
+  animation: veltripayLoader 1.15s ease-in-out infinite;
+}
+
+@keyframes veltripayLogoIntro {
+  0% { opacity: 0; transform: scale(.72) rotate(-18deg); }
+  35% { opacity: 1; }
+  72% { transform: scale(1.03) rotate(340deg); }
+  100% { opacity: 1; transform: scale(1) rotate(360deg); }
+}
+
+@keyframes veltripayShine {
+  0% { left: -80%; opacity: 0; }
+  12% { opacity: 1; }
+  58% { opacity: .95; }
+  100% { left: 145%; opacity: 0; }
+}
+
+@keyframes veltripayGlow {
+  0%, 100% { transform: scale(.92); opacity: .65; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes veltripayTextIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes veltripayLoader {
+  0% { transform: translateX(-130%); }
+  50% { transform: translateX(160%); }
+  100% { transform: translateX(280%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veltripay-splash__logo-wrap,
+  .veltripay-splash__shine,
+  .veltripay-splash__glow,
+  .veltripay-splash__brand,
+  .veltripay-splash__powered,
+  .veltripay-splash__loader,
+  .veltripay-splash__loader span {
+    animation: none !important;
+  }
+}
